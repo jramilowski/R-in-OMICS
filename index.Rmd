@@ -1,5 +1,5 @@
 ---
-title: "R_in_OMICS"
+title: "R-in-OMICS"
 
 author: Jordan Ramilowski
 email: jordanr@yokohama-cu.ac.jp
@@ -108,6 +108,7 @@ colnames(connectome_1) # names of data
 ```
 
 Closer look using specific *R* packages/functions:\
+
 ## using 'str'
 ```{r, echo=TRUE, message = FALSE, warning=FALSE}
 str(connectome_1)
