@@ -1,2 +1,2 @@
-# R-OMICS
+# R-in-OMICS
 Basic R Practice
