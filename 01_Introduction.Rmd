@@ -1,0 +1,43 @@
+# *R* Programming Language
+
+* <https://www.r-project.org/>\
+* **programming language** & **free** software environment\
+* **R**oss Ihaka and **R**obert Gentleman (1991)
+* runs on major platforms (*macOS*, *Windows*, *Linux*)\
+* used largely for statistical computing and graphics\
+* has a large collections of packages\
+
+## *R base* Package 
+* comes with *R* installation
+* contains many general functions
+
+## *CRAN* *([C]{.ul}omprehensive [R]{.ul} [A]{.ul}rchive [N]{.ul}etwork)*
+* <https://cran.r-project.org/>\
+* central software repository for *R*\
+* ~17,600 packages (manually reviewed)\
+
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+#install.packages("package.name")
+```
+
+## *Bioconductor*  
+* <https://www.bioconductor.org/>\
+* great centralized resource for NGS data analysis\
+* \~2,400 packages\
+
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#install.packages("BiocManager")
+#BiocManager::install("package.name")
+```
+
+## Intorduction to Practical\
+
+* Download the data directory from xxx\
+* setwd()\
+* Install and load all required *R* packages
+
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+#setwd('/Users/jordan/R_in_OMICS/input') # example
+library(data.table)
+```

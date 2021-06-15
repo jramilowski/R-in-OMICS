@@ -1,0 +1,39 @@
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '/Users/jordan/04_RinOMICS/input/')
+```
+
+# Reading and Writing files in *R* 
+
+## data.table::fread\
+
+Simple and efficient way of reading R files:\
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+data = fread(file = 'connectome_1in.tsv')
+data = fread(file = 'connectome_1in.tsv', nThread = 4)  # can use many processors 'nThread'  
+```
+
+‘fread' vs 'read.delim'(base) speed\ 
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+# 'fread':
+t0 = Sys.time()
+data = fread(file = 'connectome_1in.tsv') 
+t1 = Sys.time()-t0
+
+# 'read.delim':
+t0 = Sys.time()
+data = read.delim2(file = 'connectome_1in.tsv') 
+t2 = Sys.time()-t0
+```
+
+```{r, echo=FALSE, message = FALSE, warning=FALSE}
+print(c("fread: Time difference of 0.18643 secs"))
+print(c("read.delim: Time difference of 4.577949 secs"))
+```
+
+## data.table::fwrite\
+Simple and efficient way of writing R files:\
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+fwrite(data, file = 'connectome_1out.csv')             # csv file (default)
+fwrite(data, file = 'connectome_1out.tsv', sep = '\t') # tab-delim file (own specification)
+```
+

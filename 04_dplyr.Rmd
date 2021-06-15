@@ -1,0 +1,139 @@
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '/Users/jordan/04_RinOMICS/input/')
+```
+
+```{r, echo = FALSE}
+library(data.table)
+library(tidyverse)
+library(magrittr)
+```
+
+# Basic dplyr operations on data columns
+
+```{r 2}
+# the entire data has 17,263 rows and 150 columns
+data = fread(file = 'connectome_1in.tsv')
+dim(data)
+# skim(data) #you can comment this out an run
+```
+
+## 'dplyr::select\
+
+```{r 4}
+# Simple
+data %>%  dplyr::select(ApprovedSymbol, F5_min, F5_med, F5_max) # selects columns by name 
+data %>%  dplyr::select(1:4, 50) # select columns by position
+
+data %>%  dplyr::select(CellCompartment=2, geneID=1, Minimum_expr=F5_min) ## dplyr::renames and relocates variables while selecting
+head(data)[1:2,1:3] # here are the original names and order
+data %>% dplyr::select(contains("Macrophage")) # selects columns by pattern
+data %>% dplyr::select(starts_with("CD34+")) # selects columns by starting pattern
+data %>% dplyr::select(ends_with("Endothelial")) # select columns by ending pattern
+data %>%  dplyr::select(where(is.character))# selects columns by data type
+# Same as above, but works by excluding columns
+data %>%  dplyr::select(-c(6:150)) # excludes columns by position
+data %>%  dplyr::select(!where(is.numeric))# excludes columns by type using '!'
+
+# More complex
+
+# Example: 
+# select and dplyr::rename column 1 and then,  
+# select all numeric columns starting with 'T' (character variable 'Taxon' will be excluded)
+
+data %>% dplyr::select(geneSymbol=1, starts_with("T") & where(is.numeric)) 
+
+#A few more 'select' arguments are: 'num_range()','matches()', 'any_of(), 'all_of()'
+```
+
+## dplyr::rename / dplyr::rename_with
+```{r 5}
+# renaming can also be done with 'select', but 'dplyr::rename' is easier 
+
+data=fread(file = 'connectome_1in.tsv', select = c(1,7:9))
+data %>% dplyr::rename(geneSymbol = ApprovedSymbol)
+data %>% dplyr::rename_with(tolower)
+data %>% dplyr::rename_with(toupper, where(is.numeric)) # dplyr::renames to upper - here, numeric only
+```
+
+## dplyr::relocate
+```{r 6}
+# moves columns to the front; this can also be done with 'select', but 'relocate' is easier
+
+data=fread(file = 'connectome_1in.tsv', select = c(1,7:9))
+data %>% relocate(starts_with('Adip'))
+data %>% relocate(where(is.numeric))
+
+# relocate can take other arguments '.before', '.after'
+?relocate #check help
+```
+
+# Basic dplyr operations on data rows
+
+## dplyr::filter
+```{r 7}
+# keeps rows based on desired criteria
+# simple
+
+data=fread(file = 'connectome_1in.tsv', select = c(1,5:8))
+data %>%  dplyr::filter(F5_max>5) #keeps rows using a numeric value
+
+data=fread(file = 'connectome_1in.tsv', select = c(1:6))
+my_genes=c('A1BG', 'CDKN3', 'ZPBP')
+data %>%  dplyr::filter(ApprovedSymbol %in% my_genes) #keeps rows based on custom string
+
+# in conjunction with 'str_detect' from stringr package; (similar to 'grep')
+data %>% dplyr::filter(str_detect(ApprovedSymbol, '^HIST2')) #keeps all HIST2 genes
+data %>% dplyr::filter(!str_detect(ApprovedSymbol, '^HIST2')) #removes (using '!') all HIST2 genes; number of genes dropped from 17,263 to 17253, so the 10 HIST2 genes were excluded
+
+# more complex
+# example:
+# filter all HIST2 genes with a median expression >10TPM and localized to nucleus 
+
+data %>% dplyr::filter(str_detect(ApprovedSymbol, '^HIST2') & 
+                      F5_med>=10 & Localization == 'nucleus') 
+
+```
+
+## dplyr::arrange
+```{r 8}
+# arranges row order
+# descending - highest on top ; ascending highest at the bottom
+
+data=fread(file = 'connectome_1in.tsv', select = 1:4)
+data %>% dplyr::arrange(ApprovedSymbol) # arranges characters in descending order
+data %>% dplyr::arrange(desc(ApprovedSymbol)) # arranges characters in descending order
+data %>% dplyr::arrange(F5_min) # arranges numbers in descending order
+data %>% dplyr::arrange(-F5_min) # arranges numbers in ascending order
+data %>% dplyr::arrange(Localization, -F5_min) # can be combined; order matters
+
+```
+
+## dplyr::mutate / dplyr::case_when
+```{r 9}
+# 'mutate': adds a new variable as a column
+
+data=fread(file = 'connectome_1in.tsv', select = c(1,2,5))
+data %>% dplyr::mutate(my_new_variable = 'FANTOM_5_data') # added as last column
+
+# 'case_when': now row values depend on the pattern
+
+data %>% dplyr::mutate(expr_level = case_when(F5_med<10 ~'lowly-expressed gene',
+                                             TRUE ~ 'highly-expressed gene')) 
+data=fread(file = 'connectome_1in.tsv', select = c(1,2,4))
+data %>% dplyr::mutate(expr_level = 
+                      case_when(F5_min>0 & Localization == 'secreted'~
+                                'highly-expressed secreted protein',
+                                 TRUE ~ 'not so interesting')) %>%
+        dplyr:: arrange(desc(Localization))
+```
+
+# Combining 'dplyr' functions
+```{r 10}
+# Example:
+# Find all highly expressed in CD14+ Monocytes (>10TPM) putative ligands (secreted genes)
+# order the genes from most highly expressed down, annotate them and save to a file
+# ApprovedSymbol (dplyr::rename to geneSymbol), Localization and the cell of interest
+# after excluding all 'orf' genes (ex: C1orf162, etc)
+
+data=fread(file = 'connectome_1in.tsv')
+```

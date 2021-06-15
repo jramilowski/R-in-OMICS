@@ -1,0 +1,32 @@
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+library(data.table)
+```
+
+
+```{r, echo = FALSE}
+knitr::opts_knit$set(root.dir = '/Users/jordan/04_RinOMICS/input/')
+```
+
+# Exploring data in R
+
+Read in and look at first 10 columns of **connectome** data set:
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+connectome_1=fread(file='connectome_1in.tsv', select = 1:10) # first 10 columns
+```
+
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+dim(connectome_1) # number of rows / columns
+colnames(connectome_1) # names of data
+```
+
+Closer look using specific *R* packages/functions:\
+
+## using 'str'
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+str(connectome_1)
+```
+## using 'skimr::skim'
+```{r, echo=TRUE, message = FALSE, warning=FALSE}
+library(skimr)
+skimr::skim(connectome_1)
+```

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Basic dplyr operations on data rows | A Book</title>
+  <meta name="description" content="6 Basic dplyr operations on data rows | A Book" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Basic dplyr operations on data rows | A Book" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Basic dplyr operations on data rows | A Book" />
+  
+  
+  
+
+<meta name="author" content="Frida Gomam" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-dplyr-operations-on-data-columns.html"/>
+<link rel="next" href="combining-dplyr-functions.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello World</a></li>
+<li class="chapter" data-level="2" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>2</b> <em>R</em> Programming Language</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-programming-language.html"><a href="r-programming-language.html#r-base-package"><i class="fa fa-check"></i><b>2.1</b> <em>R base</em> Package</a></li>
+<li class="chapter" data-level="2.2" data-path="r-programming-language.html"><a href="r-programming-language.html#cran-comprehensive-r-archive-network"><i class="fa fa-check"></i><b>2.2</b> <em>CRAN</em> <em>(<u>C</u>omprehensive <u>R</u> <u>A</u>rchive <u>N</u>etwork)</em></a></li>
+<li class="chapter" data-level="2.3" data-path="r-programming-language.html"><a href="r-programming-language.html#bioconductor"><i class="fa fa-check"></i><b>2.3</b> <em>Bioconductor</em></a></li>
+<li><a href="r-programming-language.html#intorduction-to-practical"><span class="toc-section-number">2.4</span> Intorduction to Practical<br />
+</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="reading-and-writing-files-in-r.html"><a href="reading-and-writing-files-in-r.html"><i class="fa fa-check"></i><b>3</b> Reading and Writing files in <em>R</em></a>
+<ul>
+<li><a href="reading-and-writing-files-in-r.html#data.tablefread"><span class="toc-section-number">3.1</span> data.table::fread<br />
+</a></li>
+<li><a href="reading-and-writing-files-in-r.html#data.tablefwrite"><span class="toc-section-number">3.2</span> data.table::fwrite<br />
+</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploring-data-in-r.html"><a href="exploring-data-in-r.html"><i class="fa fa-check"></i><b>4</b> Exploring data in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploring-data-in-r.html"><a href="exploring-data-in-r.html#using-str"><i class="fa fa-check"></i><b>4.1</b> using ‘str’</a></li>
+<li class="chapter" data-level="4.2" data-path="exploring-data-in-r.html"><a href="exploring-data-in-r.html#using-skimrskim"><i class="fa fa-check"></i><b>4.2</b> using ‘skimr::skim’</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="basic-dplyr-operations-on-data-columns.html"><a href="basic-dplyr-operations-on-data-columns.html"><i class="fa fa-check"></i><b>5</b> Basic dplyr operations on data columns</a>
+<ul>
+<li><a href="basic-dplyr-operations-on-data-columns.html#dplyrselect"><span class="toc-section-number">5.1</span> ’dplyr::select<br />
+</a></li>
+<li class="chapter" data-level="5.2" data-path="basic-dplyr-operations-on-data-columns.html"><a href="basic-dplyr-operations-on-data-columns.html#dplyrrename-dplyrrename_with"><i class="fa fa-check"></i><b>5.2</b> dplyr::rename / dplyr::rename_with</a></li>
+<li class="chapter" data-level="5.3" data-path="basic-dplyr-operations-on-data-columns.html"><a href="basic-dplyr-operations-on-data-columns.html#dplyrrelocate"><i class="fa fa-check"></i><b>5.3</b> dplyr::relocate</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="basic-dplyr-operations-on-data-rows.html"><a href="basic-dplyr-operations-on-data-rows.html"><i class="fa fa-check"></i><b>6</b> Basic dplyr operations on data rows</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="basic-dplyr-operations-on-data-rows.html"><a href="basic-dplyr-operations-on-data-rows.html#dplyrfilter"><i class="fa fa-check"></i><b>6.1</b> dplyr::filter</a></li>
+<li class="chapter" data-level="6.2" data-path="basic-dplyr-operations-on-data-rows.html"><a href="basic-dplyr-operations-on-data-rows.html#dplyrarrange"><i class="fa fa-check"></i><b>6.2</b> dplyr::arrange</a></li>
+<li class="chapter" data-level="6.3" data-path="basic-dplyr-operations-on-data-rows.html"><a href="basic-dplyr-operations-on-data-rows.html#dplyrmutate-dplyrcase_when"><i class="fa fa-check"></i><b>6.3</b> dplyr::mutate / dplyr::case_when</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="combining-dplyr-functions.html"><a href="combining-dplyr-functions.html"><i class="fa fa-check"></i><b>7</b> Combining ‘dplyr’ functions</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Book</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basic-dplyr-operations-on-data-rows" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Basic dplyr operations on data rows</h1>
+<div id="dplyrfilter" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> dplyr::filter</h2>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="basic-dplyr-operations-on-data-rows.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># keeps rows based on desired criteria</span></span>
+<span id="cb61-2"><a href="basic-dplyr-operations-on-data-rows.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co"># simple</span></span>
+<span id="cb61-3"><a href="basic-dplyr-operations-on-data-rows.html#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="basic-dplyr-operations-on-data-rows.html#cb61-4" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">fread</span>(<span class="at">file =</span> <span class="st">&#39;connectome_1in.tsv&#39;</span>, <span class="at">select =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>))</span>
+<span id="cb61-5"><a href="basic-dplyr-operations-on-data-rows.html#cb61-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">filter</span>(F5_max<span class="sc">&gt;</span><span class="dv">5</span>) <span class="co">#keeps rows using a numeric value</span></span></code></pre></div>
+<pre><code>##        ApprovedSymbol  F5_med   F5_max Adipocyte Breast Adipocyte Omental
+##     1:           A1BG  16.943 2377.989           36.847            35.174
+##     2:           A1CF   0.000  153.024            0.000             0.000
+##     3:            A2M   1.212 1515.493           90.272           121.423
+##     4:          A2ML1   0.000  206.355            0.000             0.000
+##     5:         A4GALT   9.725   80.009           24.386            10.811
+##    ---                                                                   
+## 15316:         ZYG11A   0.264   11.104            0.091             0.000
+## 15317:         ZYG11B  16.580   65.872           30.164            25.141
+## 15318:            ZYX 468.361 1826.202          473.814           442.646
+## 15319:          ZZEF1   9.323   93.429            9.713             8.754
+## 15320:           ZZZ3  20.657   68.401           18.076            20.905</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="basic-dplyr-operations-on-data-rows.html#cb63-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">fread</span>(<span class="at">file =</span> <span class="st">&#39;connectome_1in.tsv&#39;</span>, <span class="at">select =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>))</span>
+<span id="cb63-2"><a href="basic-dplyr-operations-on-data-rows.html#cb63-2" aria-hidden="true" tabindex="-1"></a>my_genes<span class="ot">=</span><span class="fu">c</span>(<span class="st">&#39;A1BG&#39;</span>, <span class="st">&#39;CDKN3&#39;</span>, <span class="st">&#39;ZPBP&#39;</span>)</span>
+<span id="cb63-3"><a href="basic-dplyr-operations-on-data-rows.html#cb63-3" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ApprovedSymbol <span class="sc">%in%</span> my_genes) <span class="co">#keeps rows based on custom string</span></span></code></pre></div>
+<pre><code>##    ApprovedSymbol Localization    Taxon   F5_min F5_med   F5_max
+## 1:           A1BG     secreted Eutheria 0.263767 16.943 2377.989
+## 2:          CDKN3     multiple  Amniota 0.000000 14.600  226.150
+## 3:           ZPBP     secreted  Amniota 0.000000  0.000    0.651</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="basic-dplyr-operations-on-data-rows.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in conjunction with &#39;str_detect&#39; from stringr package; (similar to &#39;grep&#39;)</span></span>
+<span id="cb65-2"><a href="basic-dplyr-operations-on-data-rows.html#cb65-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(ApprovedSymbol, <span class="st">&#39;^HIST2&#39;</span>)) <span class="co">#keeps all HIST2 genes</span></span></code></pre></div>
+<pre><code>##     ApprovedSymbol Localization     Taxon     F5_min   F5_med    F5_max
+##  1:     HIST2H2AA3      nucleus Eukaryota   0.000000    0.431   671.790
+##  2:     HIST2H2AA4      nucleus Eukaryota   0.000000    0.431   671.790
+##  3:      HIST2H2AB      nucleus Eukaryota   9.958116   91.570  1240.587
+##  4:      HIST2H2BE     multiple Eukaryota  56.484107  416.034  2790.341
+##  5:      HIST2H2BF      nucleus Eukaryota   0.918399   21.239   457.095
+##  6:       HIST2H3A      nucleus Eukaryota   0.000000    0.174   797.346
+##  7:       HIST2H3C      nucleus Eukaryota   0.000000    0.174   797.346
+##  8:       HIST2H3D      nucleus Eukaryota   0.000000    0.174   797.346
+##  9:       HIST2H4A      nucleus Eukaryota 170.420082 1224.638 19898.334
+## 10:       HIST2H4B      nucleus Eukaryota 170.420082 1224.638 19898.334</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="basic-dplyr-operations-on-data-rows.html#cb67-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(ApprovedSymbol, <span class="st">&#39;^HIST2&#39;</span>)) <span class="co">#removes (using &#39;!&#39;) all HIST2 genes; number of genes dropped from 17,263 to 17253, so the 10 HIST2 genes were excluded</span></span></code></pre></div>
+<pre><code>##        ApprovedSymbol Localization         Taxon    F5_min  F5_med   F5_max
+##     1:           A1BG     secreted      Eutheria  0.263767  16.943 2377.989
+##     2:           A1CF     multiple Deuterostomia  0.000000   0.000  153.024
+##     3:            A2M     multiple  Euteleostomi  0.000000   1.212 1515.493
+##     4:          A2ML1     secreted  Euteleostomi  0.000000   0.000  206.355
+##     5:         A4GALT     multiple     Tetrapoda  0.000000   9.725   80.009
+##    ---                                                                     
+## 17249:         ZYG11A      nucleus  Euteleostomi  0.000000   0.264   11.104
+## 17250:         ZYG11B      nucleus  Euteleostomi  4.388704  16.580   65.872
+## 17251:            ZYX     multiple        Theria 20.467403 468.361 1826.202
+## 17252:          ZZEF1        other       Amniota  1.744677   9.323   93.429
+## 17253:           ZZZ3      nucleus Deuterostomia  4.360941  20.657   68.401</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="basic-dplyr-operations-on-data-rows.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># more complex</span></span>
+<span id="cb69-2"><a href="basic-dplyr-operations-on-data-rows.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="co"># example:</span></span>
+<span id="cb69-3"><a href="basic-dplyr-operations-on-data-rows.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="co"># filter all HIST2 genes with a median expression &gt;10TPM and localized to nucleus </span></span>
+<span id="cb69-4"><a href="basic-dplyr-operations-on-data-rows.html#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="basic-dplyr-operations-on-data-rows.html#cb69-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(ApprovedSymbol, <span class="st">&#39;^HIST2&#39;</span>) <span class="sc">&amp;</span> </span>
+<span id="cb69-6"><a href="basic-dplyr-operations-on-data-rows.html#cb69-6" aria-hidden="true" tabindex="-1"></a>                      F5_med<span class="sc">&gt;=</span><span class="dv">10</span> <span class="sc">&amp;</span> Localization <span class="sc">==</span> <span class="st">&#39;nucleus&#39;</span>) </span></code></pre></div>
+<pre><code>##    ApprovedSymbol Localization     Taxon     F5_min   F5_med    F5_max
+## 1:      HIST2H2AB      nucleus Eukaryota   9.958116   91.570  1240.587
+## 2:      HIST2H2BF      nucleus Eukaryota   0.918399   21.239   457.095
+## 3:       HIST2H4A      nucleus Eukaryota 170.420082 1224.638 19898.334
+## 4:       HIST2H4B      nucleus Eukaryota 170.420082 1224.638 19898.334</code></pre>
+</div>
+<div id="dplyrarrange" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> dplyr::arrange</h2>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="basic-dplyr-operations-on-data-rows.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arranges row order</span></span>
+<span id="cb71-2"><a href="basic-dplyr-operations-on-data-rows.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="co"># descending - highest on top ; ascending highest at the bottom</span></span>
+<span id="cb71-3"><a href="basic-dplyr-operations-on-data-rows.html#cb71-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-4"><a href="basic-dplyr-operations-on-data-rows.html#cb71-4" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">fread</span>(<span class="at">file =</span> <span class="st">&#39;connectome_1in.tsv&#39;</span>, <span class="at">select =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb71-5"><a href="basic-dplyr-operations-on-data-rows.html#cb71-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(ApprovedSymbol) <span class="co"># arranges characters in descending order</span></span></code></pre></div>
+<pre><code>##        ApprovedSymbol Localization         Taxon    F5_min
+##     1:           A1BG     secreted      Eutheria  0.263767
+##     2:           A1CF     multiple Deuterostomia  0.000000
+##     3:            A2M     multiple  Euteleostomi  0.000000
+##     4:          A2ML1     secreted  Euteleostomi  0.000000
+##     5:         A4GALT     multiple     Tetrapoda  0.000000
+##    ---                                                    
+## 17259:         ZYG11A      nucleus  Euteleostomi  0.000000
+## 17260:         ZYG11B      nucleus  Euteleostomi  4.388704
+## 17261:            ZYX     multiple        Theria 20.467403
+## 17262:          ZZEF1        other       Amniota  1.744677
+## 17263:           ZZZ3      nucleus Deuterostomia  4.360941</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="basic-dplyr-operations-on-data-rows.html#cb73-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(ApprovedSymbol)) <span class="co"># arranges characters in descending order</span></span></code></pre></div>
+<pre><code>##        ApprovedSymbol Localization         Taxon    F5_min
+##     1:           ZZZ3      nucleus Deuterostomia  4.360941
+##     2:          ZZEF1        other       Amniota  1.744677
+##     3:            ZYX     multiple        Theria 20.467403
+##     4:         ZYG11B      nucleus  Euteleostomi  4.388704
+##     5:         ZYG11A      nucleus  Euteleostomi  0.000000
+##    ---                                                    
+## 17259:         A4GALT     multiple     Tetrapoda  0.000000
+## 17260:          A2ML1     secreted  Euteleostomi  0.000000
+## 17261:            A2M     multiple  Euteleostomi  0.000000
+## 17262:           A1CF     multiple Deuterostomia  0.000000
+## 17263:           A1BG     secreted      Eutheria  0.263767</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="basic-dplyr-operations-on-data-rows.html#cb75-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(F5_min) <span class="co"># arranges numbers in descending order</span></span></code></pre></div>
+<pre><code>##        ApprovedSymbol Localization         Taxon    F5_min
+##     1:           A1CF     multiple Deuterostomia    0.0000
+##     2:            A2M     multiple  Euteleostomi    0.0000
+##     3:          A2ML1     secreted  Euteleostomi    0.0000
+##     4:         A4GALT     multiple     Tetrapoda    0.0000
+##     5:          A4GNT        other     Tetrapoda    0.0000
+##    ---                                                    
+## 17259:          RPS24    cytoplasm     Eukaryota  331.8715
+## 17260:          PCBP2     multiple  Opisthokonta  344.3184
+## 17261:           CFL1     multiple     Eukaryota  390.6739
+## 17262:         EIF4G2    cytoplasm Deuterostomia  402.0313
+## 17263:           ACTB     multiple     Eukaryota 1451.3885</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="basic-dplyr-operations-on-data-rows.html#cb77-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="sc">-</span>F5_min) <span class="co"># arranges numbers in ascending order</span></span></code></pre></div>
+<pre><code>##        ApprovedSymbol Localization         Taxon    F5_min
+##     1:           ACTB     multiple     Eukaryota 1451.3885
+##     2:         EIF4G2    cytoplasm Deuterostomia  402.0313
+##     3:           CFL1     multiple     Eukaryota  390.6739
+##     4:          PCBP2     multiple  Opisthokonta  344.3184
+##     5:          RPS24    cytoplasm     Eukaryota  331.8715
+##    ---                                                    
+## 17259:          ZUFSP      nucleus  Euteleostomi    0.0000
+## 17260:          ZWINT     multiple      Eutheria    0.0000
+## 17261:           ZXDA      nucleus  Euteleostomi    0.0000
+## 17262:           ZXDB      nucleus  Euteleostomi    0.0000
+## 17263:         ZYG11A      nucleus  Euteleostomi    0.0000</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="basic-dplyr-operations-on-data-rows.html#cb79-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(Localization, <span class="sc">-</span>F5_min) <span class="co"># can be combined; order matters</span></span></code></pre></div>
+<pre><code>##        ApprovedSymbol Localization         Taxon   F5_min
+##     1:         EIF4G2    cytoplasm Deuterostomia 402.0313
+##     2:          RPS24    cytoplasm     Eukaryota 331.8715
+##     3:           EIF1    cytoplasm     Eukaryota 301.4819
+##     4:            FTL    cytoplasm        Theria 149.4635
+##     5:            UBC    cytoplasm     Eukaryota 139.8899
+##    ---                                                   
+## 17259:          XYLT1     secreted     Bilateria   0.0000
+## 17260:          ZG16B     secreted    Catarrhini   0.0000
+## 17261:         ZNF365     secreted     Tetrapoda   0.0000
+## 17262:           ZPBP     secreted       Amniota   0.0000
+## 17263:          ZPBP2     secreted       Amniota   0.0000</code></pre>
+</div>
+<div id="dplyrmutate-dplyrcase_when" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> dplyr::mutate / dplyr::case_when</h2>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="basic-dplyr-operations-on-data-rows.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;mutate&#39;: adds a new variable as a column</span></span>
+<span id="cb81-2"><a href="basic-dplyr-operations-on-data-rows.html#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="basic-dplyr-operations-on-data-rows.html#cb81-3" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">fread</span>(<span class="at">file =</span> <span class="st">&#39;connectome_1in.tsv&#39;</span>, <span class="at">select =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>))</span>
+<span id="cb81-4"><a href="basic-dplyr-operations-on-data-rows.html#cb81-4" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">my_new_variable =</span> <span class="st">&#39;FANTOM_5_data&#39;</span>) <span class="co"># added as last column</span></span></code></pre></div>
+<pre><code>##        ApprovedSymbol Localization  F5_med my_new_variable
+##     1:           A1BG     secreted  16.943   FANTOM_5_data
+##     2:           A1CF     multiple   0.000   FANTOM_5_data
+##     3:            A2M     multiple   1.212   FANTOM_5_data
+##     4:          A2ML1     secreted   0.000   FANTOM_5_data
+##     5:         A4GALT     multiple   9.725   FANTOM_5_data
+##    ---                                                    
+## 17259:         ZYG11A      nucleus   0.264   FANTOM_5_data
+## 17260:         ZYG11B      nucleus  16.580   FANTOM_5_data
+## 17261:            ZYX     multiple 468.361   FANTOM_5_data
+## 17262:          ZZEF1        other   9.323   FANTOM_5_data
+## 17263:           ZZZ3      nucleus  20.657   FANTOM_5_data</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="basic-dplyr-operations-on-data-rows.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;case_when&#39;: now row values depend on the pattern</span></span>
+<span id="cb83-2"><a href="basic-dplyr-operations-on-data-rows.html#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="basic-dplyr-operations-on-data-rows.html#cb83-3" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">expr_level =</span> <span class="fu">case_when</span>(F5_med<span class="sc">&lt;</span><span class="dv">10</span> <span class="sc">~</span><span class="st">&#39;lowly-expressed gene&#39;</span>,</span>
+<span id="cb83-4"><a href="basic-dplyr-operations-on-data-rows.html#cb83-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&#39;highly-expressed gene&#39;</span>)) </span></code></pre></div>
+<pre><code>##        ApprovedSymbol Localization  F5_med            expr_level
+##     1:           A1BG     secreted  16.943 highly-expressed gene
+##     2:           A1CF     multiple   0.000  lowly-expressed gene
+##     3:            A2M     multiple   1.212  lowly-expressed gene
+##     4:          A2ML1     secreted   0.000  lowly-expressed gene
+##     5:         A4GALT     multiple   9.725  lowly-expressed gene
+##    ---                                                          
+## 17259:         ZYG11A      nucleus   0.264  lowly-expressed gene
+## 17260:         ZYG11B      nucleus  16.580 highly-expressed gene
+## 17261:            ZYX     multiple 468.361 highly-expressed gene
+## 17262:          ZZEF1        other   9.323  lowly-expressed gene
+## 17263:           ZZZ3      nucleus  20.657 highly-expressed gene</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="basic-dplyr-operations-on-data-rows.html#cb85-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">fread</span>(<span class="at">file =</span> <span class="st">&#39;connectome_1in.tsv&#39;</span>, <span class="at">select =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>))</span>
+<span id="cb85-2"><a href="basic-dplyr-operations-on-data-rows.html#cb85-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">expr_level =</span> </span>
+<span id="cb85-3"><a href="basic-dplyr-operations-on-data-rows.html#cb85-3" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">case_when</span>(F5_min<span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> Localization <span class="sc">==</span> <span class="st">&#39;secreted&#39;</span><span class="sc">~</span></span>
+<span id="cb85-4"><a href="basic-dplyr-operations-on-data-rows.html#cb85-4" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&#39;highly-expressed secreted protein&#39;</span>,</span>
+<span id="cb85-5"><a href="basic-dplyr-operations-on-data-rows.html#cb85-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&#39;not so interesting&#39;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb85-6"><a href="basic-dplyr-operations-on-data-rows.html#cb85-6" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Localization))</span></code></pre></div>
+<pre><code>##        ApprovedSymbol Localization   F5_min                        expr_level
+##     1:           A1BG     secreted 0.263767 highly-expressed secreted protein
+##     2:          A2ML1     secreted 0.000000                not so interesting
+##     3:        AADACL2     secreted 0.000000                not so interesting
+##     4:         ABHD12     secreted 5.284597 highly-expressed secreted protein
+##     5:        ABHD12B     secreted 0.000000                not so interesting
+##    ---                                                                       
+## 17259:         ZNF503    cytoplasm 0.000000                not so interesting
+## 17260:         ZNF706    cytoplasm 6.065311                not so interesting
+## 17261:          ZNFX1    cytoplasm 6.826872                not so interesting
+## 17262:          ZNRF4    cytoplasm 0.000000                not so interesting
+## 17263:         ZSWIM8    cytoplasm 1.970653                not so interesting</code></pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-dplyr-operations-on-data-columns.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="combining-dplyr-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
