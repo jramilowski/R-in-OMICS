@@ -1,121 +1,17 @@
 ---
-title: "R-in-OMICS"
-
-author: Jordan Ramilowski
-email: jordanr@yokohama-cu.ac.jp
+title: "A Book"
+author: "Frida Gomam"
+site: bookdown::bookdown_site
+documentclass: book
 output:
-  rmdformats::readthedown:
-    self_contained: true
-    thumbnails: true
-    lightbox: true
-    gallery: true
-    highlight: tango
-    
-date: '`r format(Sys.time(), "%d %B, %Y")`'  
+  bookdown::gitbook: default
+  #bookdown::pdf_book: default
 ---
-```{r setup, echo = FALSE}
-knitr::opts_knit$set(root.dir = '/Users/jordan/BI_KYOTEN/_RHomework/assignment_01/input/')
-```
 
-# *R*
+# Hello World
 
-* <https://www.r-project.org/>\
-* **programming language** & **free** software environment\
-* **R**oss Ihaka and **R**obert Gentleman (1991)
-* runs on major platforms (*macOS*, *Windows*, *Linux*)\
-* used largely for statistical computing and graphics\
-* has a large collections of packages\
+Hi.
 
-## *R base* Package 
-* comes with *R* installation
-* contains many general functions
+Bye.
 
-## *CRAN* *([C]{.ul}omprehensive [R]{.ul} [A]{.ul}rchive [N]{.ul}etwork)*
-* <https://cran.r-project.org/>\
-* central software repository for *R*\
-* ~17,600 packages (manually reviewed)\
-
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-#install.packages("package.name")
-```
-
-## *Bioconductor*  
-* <https://www.bioconductor.org/>\
-* great centralized resource for NGS data analysis\
-* \~2,400 packages\
-
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-#if (!requireNamespace("BiocManager", quietly = TRUE))
-#install.packages("BiocManager")
-#BiocManager::install("package.name")
-```
-
-# Intorduction to Practical\
-
-* Download the data directory from xxx\
-* setwd()\
-* Install and load all required *R* packages
-
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-setwd('/Users/jordan/R_in_OMICS/input') # example
-library(data.table)
-```
-
-# Reading and Writing files in *R* 
-
-## data.table::fread\
-Simple and efficient way of reading R files:\
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-data = fread(file = 'connectome_1in.tsv')
-data = fread(file = 'connectome_1in.tsv', nThread = 4)  # can use many processors 'nThread'  
-```
-
-‘fread' vs 'read.delim'(base) speed\ 
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-# 'fread':
-t0 = Sys.time()
-data = fread(file = 'connectome_1in.tsv') 
-t1 = Sys.time()-t0
-
-# 'read.delim':
-t0 = Sys.time()
-data = read.delim2(file = 'connectome_1in.tsv') 
-t2 = Sys.time()-t0
-```
-
-```{r, echo=FALSE, message = FALSE, warning=FALSE}
-print(c("fread: Time difference of 0.18643 secs"))
-print(c("read.delim: Time difference of 4.577949 secs"))
-```
-
-## data.table::fwrite\
-Simple and efficient way of writing R files:\
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-fwrite(data, file = 'connectome_1out.csv')             # csv file (default)
-fwrite(data, file = 'connectome_1out.tsv', sep = '\t') # tab-delim file (own specification)
-```
-
-# Exploring data in R
-
-Read in and look at first 10 columns of **connectome** data set:
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-connectome_1=fread(file='connectome_1in.tsv', select = 1:10) # first 10 columns
-```
-
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-dim(connectome_1) # number of rows / columns
-colnames(connectome_1) # names of data
-```
-
-Closer look using specific *R* packages/functions:\
-
-## using 'str'
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-str(connectome_1)
-```
-## using 'skimr::skim'
-```{r, echo=TRUE, message = FALSE, warning=FALSE}
-library(skimr)
-skimr::skim(connectome_1)
-```
-
+<!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
