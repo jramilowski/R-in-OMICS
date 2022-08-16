@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R &amp; OMICS - 4&nbsp; Basic dplyr operations on data columns</title>
+<title>R &amp; OMICS - 5&nbsp; Basic dplyr operations on data columns</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -128,7 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic dplyr operations on data columns</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Basic dplyr operations on data columns</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -153,32 +153,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">This Rescource</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_Practical.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Required Data</span></a>
+  <a href="./01_Practical.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Required Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_ReadWrite.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reading and Writing files in <em>R</em></span></a>
+  <a href="./02_ReadWrite.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading and Writing files in <em>R</em></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_ExploringData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exploring data in R</span></a>
+  <a href="./03_ExploringData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Exploring data in R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_dplyr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic dplyr operations on data columns</span></a>
+  <a href="./04_dplyr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Basic dplyr operations on data columns</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_groupped_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Working with groupped data</span></a>
+  <a href="./05_groupped_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Working with groupped data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,17 +195,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#dplyrselect" id="toc-dplyrselect" class="nav-link active" data-scroll-target="#dplyrselect"> <span class="header-section-number">4.1</span> ’dplyr::select<br>
+  <li><a href="#dplyrselect" id="toc-dplyrselect" class="nav-link active" data-scroll-target="#dplyrselect"> <span class="header-section-number">5.1</span> ’dplyr::select<br>
   </a></li>
-  <li><a href="#dplyrrename-dplyrrename_with" id="toc-dplyrrename-dplyrrename_with" class="nav-link" data-scroll-target="#dplyrrename-dplyrrename_with"> <span class="header-section-number">4.2</span> dplyr::rename / dplyr::rename_with</a></li>
-  <li><a href="#dplyrrelocate" id="toc-dplyrrelocate" class="nav-link" data-scroll-target="#dplyrrelocate"> <span class="header-section-number">4.3</span> dplyr::relocate</a></li>
-  <li><a href="#basic-dplyr-operations-on-data-rows" id="toc-basic-dplyr-operations-on-data-rows" class="nav-link" data-scroll-target="#basic-dplyr-operations-on-data-rows"> <span class="header-section-number">5</span> Basic dplyr operations on data rows</a>
+  <li><a href="#dplyrrename-dplyrrename_with" id="toc-dplyrrename-dplyrrename_with" class="nav-link" data-scroll-target="#dplyrrename-dplyrrename_with"> <span class="header-section-number">5.2</span> dplyr::rename / dplyr::rename_with</a></li>
+  <li><a href="#dplyrrelocate" id="toc-dplyrrelocate" class="nav-link" data-scroll-target="#dplyrrelocate"> <span class="header-section-number">5.3</span> dplyr::relocate</a></li>
+  <li><a href="#basic-dplyr-operations-on-data-rows" id="toc-basic-dplyr-operations-on-data-rows" class="nav-link" data-scroll-target="#basic-dplyr-operations-on-data-rows"> <span class="header-section-number">6</span> Basic dplyr operations on data rows</a>
   <ul class="collapse">
-  <li><a href="#dplyrfilter" id="toc-dplyrfilter" class="nav-link" data-scroll-target="#dplyrfilter"> <span class="header-section-number">5.1</span> dplyr::filter</a></li>
-  <li><a href="#dplyrarrange" id="toc-dplyrarrange" class="nav-link" data-scroll-target="#dplyrarrange"> <span class="header-section-number">5.2</span> dplyr::arrange</a></li>
-  <li><a href="#dplyrmutate-dplyrcase_when" id="toc-dplyrmutate-dplyrcase_when" class="nav-link" data-scroll-target="#dplyrmutate-dplyrcase_when"> <span class="header-section-number">5.3</span> dplyr::mutate / dplyr::case_when</a></li>
+  <li><a href="#dplyrfilter" id="toc-dplyrfilter" class="nav-link" data-scroll-target="#dplyrfilter"> <span class="header-section-number">6.1</span> dplyr::filter</a></li>
+  <li><a href="#dplyrarrange" id="toc-dplyrarrange" class="nav-link" data-scroll-target="#dplyrarrange"> <span class="header-section-number">6.2</span> dplyr::arrange</a></li>
+  <li><a href="#dplyrmutate-dplyrcase_when" id="toc-dplyrmutate-dplyrcase_when" class="nav-link" data-scroll-target="#dplyrmutate-dplyrcase_when"> <span class="header-section-number">6.3</span> dplyr::mutate / dplyr::case_when</a></li>
   </ul></li>
-  <li><a href="#combining-dplyr-functions" id="toc-combining-dplyr-functions" class="nav-link" data-scroll-target="#combining-dplyr-functions"> <span class="header-section-number">6</span> Combining ‘dplyr’ functions</a></li>
+  <li><a href="#combining-dplyr-functions" id="toc-combining-dplyr-functions" class="nav-link" data-scroll-target="#combining-dplyr-functions"> <span class="header-section-number">7</span> Combining ‘dplyr’ functions</a></li>
   </ul>
 </nav>
     </div>
@@ -214,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic dplyr operations on data columns</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Basic dplyr operations on data columns</span></h1>
 </div>
 
 
@@ -268,8 +268,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># skim(data) #you can comment this out an run</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="dplyrselect" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="dplyrselect"><span class="header-section-number">4.1</span> ’dplyr::select<br>
+<section id="dplyrselect" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="dplyrselect"><span class="header-section-number">5.1</span> ’dplyr::select<br>
 </h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple</span></span>
@@ -439,8 +439,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#A few more 'select' arguments are: 'num_range()','matches()', 'any_of(), 'all_of()'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="dplyrrename-dplyrrename_with" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="dplyrrename-dplyrrename_with"><span class="header-section-number">4.2</span> dplyr::rename / dplyr::rename_with</h2>
+<section id="dplyrrename-dplyrrename_with" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="dplyrrename-dplyrrename_with"><span class="header-section-number">5.2</span> dplyr::rename / dplyr::rename_with</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># renaming can also be done with 'select', but 'dplyr::rename' is easier </span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -492,8 +492,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="dplyrrelocate" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="dplyrrelocate"><span class="header-section-number">4.3</span> dplyr::relocate</h2>
+<section id="dplyrrelocate" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="dplyrrelocate"><span class="header-section-number">5.3</span> dplyr::relocate</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># moves columns to the front; this can also be done with 'select', but 'relocate' is easier</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -532,10 +532,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>?relocate <span class="co">#check help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="basic-dplyr-operations-on-data-rows" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Basic dplyr operations on data rows</h1>
-<section id="dplyrfilter" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="dplyrfilter"><span class="header-section-number">5.1</span> dplyr::filter</h2>
+<section id="basic-dplyr-operations-on-data-rows" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Basic dplyr operations on data rows</h1>
+<section id="dplyrfilter" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="dplyrfilter"><span class="header-section-number">6.1</span> dplyr::filter</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># keeps rows based on desired criteria</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># simple</span></span>
@@ -610,8 +610,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="dplyrarrange" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="dplyrarrange"><span class="header-section-number">5.2</span> dplyr::arrange</h2>
+<section id="dplyrarrange" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="dplyrarrange"><span class="header-section-number">6.2</span> dplyr::arrange</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arranges row order</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># descending - highest on top ; ascending highest at the bottom</span></span>
@@ -694,8 +694,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="dplyrmutate-dplyrcase_when" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="dplyrmutate-dplyrcase_when"><span class="header-section-number">5.3</span> dplyr::mutate / dplyr::case_when</h2>
+<section id="dplyrmutate-dplyrcase_when" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="dplyrmutate-dplyrcase_when"><span class="header-section-number">6.3</span> dplyr::mutate / dplyr::case_when</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 'mutate': adds a new variable as a column</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -756,8 +756,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="combining-dplyr-functions" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Combining ‘dplyr’ functions</h1>
+<section id="combining-dplyr-functions" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Combining ‘dplyr’ functions</h1>
 <p>Example:<br>
 1. find all highly expressed in CD14+ Monocytes (&gt;10TPM) putative ligands (secreted genes)<br>
 2. order the genes from most highly expressed down, annotate them and save to a file<br>
@@ -892,12 +892,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./03_ExploringData.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exploring data in R</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Exploring data in R</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./05_groupped_data.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Working with groupped data</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Working with groupped data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
