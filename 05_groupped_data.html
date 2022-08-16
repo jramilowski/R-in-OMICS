@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>mybook - 6&nbsp; Working with groupped data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./04_dplyr.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Working with groupped data</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">mybook</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_Introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><em>R</em> Programming Language</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Practical.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">This Resource</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_ReadWrite.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading and Writing files in <em>R</em></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_ExploringData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Exploring data in R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_dplyr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Basic dplyr operations on data columns</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_groupped_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Working with groupped data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#dplyradd_count-dplyrcount" id="toc-dplyradd_count-dplyrcount" class="nav-link active" data-scroll-target="#dplyradd_count-dplyrcount"> <span class="header-section-number">6.1</span> dplyr::add_count / dplyr::count</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Working with groupped data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.8     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::between()   masks data.table::between()
+✖ dplyr::filter()    masks stats::filter()
+✖ dplyr::first()     masks data.table::first()
+✖ dplyr::lag()       masks stats::lag()
+✖ dplyr::last()      masks data.table::last()
+✖ purrr::transpose() masks data.table::transpose()
+
+ 次のパッケージを付け加えます: 'magrittr' 
+
+
+ 以下のオブジェクトは 'package:purrr' からマスクされています:
+
+    set_names
+
+
+ 以下のオブジェクトは 'package:tidyr' からマスクされています:
+
+    extract</code></pre>
+</div>
+</div>
+<section id="dplyradd_count-dplyrcount" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="dplyradd_count-dplyrcount"><span class="header-section-number">6.1</span> dplyr::add_count / dplyr::count</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">fread</span>(<span class="at">file =</span> <span class="st">'connectome_1in.tsv'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">add_count</span>(ApprovedSymbol) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="sc">-</span>n) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       ApprovedSymbol Localization         Taxon    F5_min  F5_med   F5_max
+    1:           A1BG     secreted      Eutheria  0.263767  16.943 2377.989
+    2:           A1CF     multiple Deuterostomia  0.000000   0.000  153.024
+    3:            A2M     multiple  Euteleostomi  0.000000   1.212 1515.493
+    4:          A2ML1     secreted  Euteleostomi  0.000000   0.000  206.355
+    5:         A4GALT     multiple     Tetrapoda  0.000000   9.725   80.009
+   ---                                                                     
+17259:         ZYG11A      nucleus  Euteleostomi  0.000000   0.264   11.104
+17260:         ZYG11B      nucleus  Euteleostomi  4.388704  16.580   65.872
+17261:            ZYX     multiple        Theria 20.467403 468.361 1826.202
+17262:          ZZEF1        other       Amniota  1.744677   9.323   93.429
+17263:           ZZZ3      nucleus Deuterostomia  4.360941  20.657   68.401
+       Adipocyte Breast Adipocyte Omental Adipocyte Perirenal
+    1:           36.847            35.174              49.723
+    2:            0.000             0.000               0.000
+    3:           90.272           121.423              50.596
+    4:            0.000             0.000               0.000
+    5:           24.386            10.811              17.447
+   ---                                                       
+17259:            0.091             0.000               0.000
+17260:           30.164            25.141              18.319
+17261:          473.814           442.646             389.935
+17262:            9.713             8.754               1.745
+17263:           18.076            20.905              19.191
+       Adipocyte Subcutaneous Alveolar Epithelial Amniotic Epithelial
+    1:                 41.076               4.143               0.264
+    2:                  0.000               0.000               0.000
+    3:                 63.397               0.000               0.000
+    4:                  0.000               0.000              21.168
+    5:                 27.730              11.608              19.070
+   ---                                                               
+17259:                  0.000               0.123               1.733
+17260:                 18.911               4.978              15.027
+17261:                663.910            1012.799             495.516
+17262:                  9.769               6.561              12.725
+17263:                 11.938              10.109               6.001
+       Amniotic Membrane Annulus Pulposus Astrocyte Cerebellum
+    1:             4.915           31.099               16.943
+    2:             0.000            0.000                0.000
+    3:             0.819            0.000                1.364
+    4:           206.355            0.000                0.000
+    5:            30.631           42.725                6.146
+   ---                                                        
+17259:             0.396            0.000                1.195
+17260:            21.576           17.402                7.212
+17261:            81.118          638.182              597.896
+17262:            12.789            8.083                9.124
+17263:            25.542           26.437               10.307
+       Astrocyte Cerebral Cortex Basophils Bronchial Epithelial
+    1:                     7.498    17.908                9.793
+    2:                     0.000     0.103                0.000
+    3:                     8.824     0.128                0.000
+    4:                     0.000     0.619                3.187
+    5:                     0.655     0.334               16.745
+   ---                                                         
+17259:                     1.115     0.128                0.100
+17260:                    27.474    14.586                6.326
+17261:                   251.642   440.993              641.173
+17262:                     8.411    33.169                9.038
+17263:                    27.943    17.550               13.487
+       CD133+ Haematopoietic stem cell
+    1:                          50.206
+    2:                           0.000
+    3:                           0.000
+    4:                           0.000
+    5:                           0.000
+   ---                                
+17259:                           0.000
+17260:                           8.514
+17261:                         116.266
+17262:                          11.450
+17263:                          31.122
+       CD14+ Monocyte derived Endothelial progenitor CD14+ Monocytes
+    1:                                        21.596          16.290
+    2:                                         0.000           0.000
+    3:                                       144.359           0.185
+    4:                                         0.000           0.000
+    5:                                         0.075           0.217
+   ---                                                              
+17259:                                         0.000           0.000
+17260:                                        43.930          17.754
+17261:                                       270.955         476.539
+17262:                                        59.266          49.950
+17263:                                        68.401          23.115
+       CD14+CD16+ Monocytes CD14+CD16- Monocytes CD14-CD16+ Monocytes
+    1:               16.181               23.447               10.928
+    2:                0.000                0.000                0.000
+    3:                0.141                0.050                0.127
+    4:                0.000                0.000                0.000
+    5:                0.000                0.037                0.000
+   ---                                                               
+17259:                0.000                0.000                0.000
+17260:               15.776               20.266               16.119
+17261:              359.648              580.106              329.579
+17262:               19.920               23.946               30.071
+17263:               15.776               17.156               13.928
+       CD19+ B cells CD34+ Haematopoietic stem cell CD34+ progenitor
+    1:        24.777                         23.968           34.219
+    2:         0.000                          0.000            0.000
+    3:         0.000                          1.317            0.280
+    4:         0.000                          0.000            0.000
+    5:         0.217                          2.370            0.280
+   ---                                                              
+17259:         1.290                          0.527            0.000
+17260:        17.912                         14.750            6.768
+17261:        26.779                         91.394          128.700
+17262:        27.082                         12.379           26.067
+17263:        35.293                         21.861           28.870
+       CD4+ T cells CD4+CD25+CD45RA+ naive regulatory T cells
+    1:       15.572                                    13.057
+    2:        0.000                                     0.000
+    3:        0.000                                     0.000
+    4:        0.000                                     0.000
+    5:        0.000                                     0.000
+   ---                                                       
+17259:        0.262                                     0.118
+17260:       25.652                                    16.660
+17261:      156.419                                    76.060
+17262:       45.869                                    23.929
+17263:       51.262                                    38.660
+       CD4+CD25+CD45RA- memory regulatory T cells
+    1:                                     15.473
+    2:                                      0.000
+    3:                                      0.000
+    4:                                      0.000
+    5:                                      0.341
+   ---                                           
+17259:                                      0.062
+17260:                                     15.991
+17261:                                    154.997
+17262:                                     20.953
+17263:                                     31.162
+       CD4+CD25-CD45RA+ naive conventional T cells
+    1:                                      16.530
+    2:                                       0.000
+    3:                                       0.000
+    4:                                       0.000
+    5:                                       0.000
+   ---                                            
+17259:                                       0.101
+17260:                                      20.752
+17261:                                     111.837
+17262:                                      26.076
+17263:                                      40.911
+       CD4+CD25-CD45RA- memory conventional T cells CD8+ T cells
+    1:                                       17.132       25.467
+    2:                                        0.000        0.000
+    3:                                        0.000        0.000
+    4:                                        0.000        0.000
+    5:                                        0.028        0.000
+   ---                                                          
+17259:                                        0.152        0.149
+17260:                                       15.595       17.183
+17261:                                      115.866      130.069
+17262:                                       24.326       29.854
+17263:                                       34.308       42.319
+       Cardiac Myocyte Chondroblast Chondrocyte Chorionic Membrane
+    1:           8.595        9.231      17.668              7.071
+    2:           0.000        0.000       0.000              0.000
+    3:          17.161        4.198      28.522             30.713
+    4:           0.000        0.000       0.000             18.666
+    5:          12.142       31.842      19.033             27.820
+   ---                                                            
+17259:           0.309        0.241       0.000              0.153
+17260:          22.829       18.431      23.253             18.167
+17261:         432.366      341.704     127.448            287.212
+17262:          10.602        9.115       9.840             11.830
+17263:          24.197       20.446      22.374             21.327
+       Ciliary Epithelial Corneal Epithelial
+    1:              5.169             10.818
+    2:              0.000              0.000
+    3:              1.474              0.000
+    4:              0.029             16.614
+    5:              3.882             62.267
+   ---                                      
+17259:              1.246              1.103
+17260:             22.091              5.705
+17261:            425.145            416.233
+17262:              9.560              6.434
+17263:             26.001              4.983
+       Dendritic Monocyte Immature derived Dendritic Plasmacytoid ES cells
+    1:                              19.102                 93.768   10.198
+    2:                               0.000                  0.000    0.000
+    3:                             622.499                  0.966    0.044
+    4:                               0.000                  0.000    0.125
+    5:                               3.082                  1.999    5.704
+   ---                                                                    
+17259:                               0.044                  0.000   11.104
+17260:                              30.346                  4.601   18.448
+17261:                             345.054                103.197  177.084
+17262:                              22.906                 23.909    4.880
+17263:                              17.190                 50.876   34.292
+       Endothelial Aortic Endothelial Artery Endothelial Lymphatic
+    1:             14.159             12.190                 2.268
+    2:              0.000              0.000                 0.000
+    3:              0.849              7.317               112.864
+    4:              0.000              0.000                 0.000
+    5:             16.708             22.830                17.733
+   ---                                                            
+17259:              0.514              0.737                 0.291
+17260:             16.580             10.450                25.263
+17261:            760.351            951.401               430.343
+17262:             14.401             10.641                16.899
+17263:             12.937             11.703                37.392
+       Endothelial Microvascular Endothelial Thoracic
+    1:                    15.821               16.751
+    2:                     0.000                0.000
+    3:                    22.919                4.527
+    4:                     0.000                0.000
+    5:                    48.154               23.226
+   ---                                               
+17259:                     0.760                0.000
+17260:                    14.217               12.139
+17261:                   678.548              810.633
+17262:                    12.125               12.915
+17263:                    12.092               14.897
+       Endothelial Umbilical Vein Endothelial Vein Eosinophils
+    1:                      1.460            8.301       2.636
+    2:                      0.000            0.000       0.000
+    3:                      6.203            0.938       0.000
+    4:                      0.000            0.000       0.000
+    5:                      6.894            3.753       0.000
+   ---                                                        
+17259:                      1.584            1.011       0.000
+17260:                     21.824           17.400      41.867
+17261:                    351.405          857.603     742.793
+17262:                     12.374           13.511      93.429
+17263:                     31.748           12.787       9.187
+       Esophageal Epithelial Fibroblast Aortic Adventitial Fibroblast Cardiac
+    1:                 8.286                         9.701             24.256
+    2:                 0.000                         0.000              0.000
+    3:                 0.436                         5.699             10.457
+    4:                17.008                         0.000              0.000
+    5:                18.752                        19.151             15.473
+   ---                                                                       
+17259:                 0.872                         0.988              0.465
+17260:                 7.414                        20.302             21.306
+17261:               593.088                       515.496            597.537
+17262:                 3.489                         8.258             10.805
+17263:                 4.361                        20.657             22.829
+       Fibroblast Choroid Plexus Fibroblast Conjunctival Fibroblast Dermal
+    1:                    35.255                  20.855            22.007
+    2:                     0.000                   0.000             0.000
+    3:                     7.497                   0.234             1.313
+    4:                     0.000                   0.000             0.095
+    5:                    44.240                   7.264             6.952
+   ---                                                                    
+17259:                     0.378                   1.875             0.965
+17260:                    14.575                   9.139            14.446
+17261:                   452.713                 698.512           493.593
+17262:                    11.345                   6.561             8.834
+17263:                    19.612                  19.917            29.152
+       Fibroblast Gingival Fibroblast Lymphatic Fibroblast Periodontal Ligament
+    1:              26.186               34.565                          20.547
+    2:               0.000                0.000                           0.000
+    3:               0.465                0.000                           1.168
+    4:               0.000                0.000                           0.000
+    5:              21.772               28.743                          13.828
+   ---                                                                         
+17259:               0.414                0.000                           0.613
+17260:              26.905                5.509                          25.036
+17261:             458.303             1757.244                         560.575
+17262:              10.650                4.431                           9.916
+17263:              36.798                8.407                          29.337
+       Fibroblast Pulmonary Artery Fibroblast Skin Normal Gingival Epithelial
+    1:                      15.881                 32.488               5.443
+    2:                       0.000                  0.000               0.000
+    3:                       0.340                 23.182               0.064
+    4:                       0.000                  0.000              26.966
+    5:                      12.364                 11.766              11.276
+   ---                                                                       
+17259:                       0.227                  0.235               1.261
+17260:                      14.860                 16.632              17.275
+17261:                     468.361                479.812             359.155
+17262:                       5.785                  8.612               7.890
+17263:                      12.931                 29.297              17.675
+       Granulocyte Macrophage progenitor Hair Follicle Dermal Papilla
+    1:                            34.492                       35.204
+    2:                             0.000                        0.000
+    3:                             0.000                        9.592
+    4:                             0.000                        0.000
+    5:                             0.000                        6.254
+   ---                                                               
+17259:                             0.000                        0.460
+17260:                            28.104                       13.679
+17261:                           226.111                      941.256
+17262:                            77.925                       13.769
+17263:                            22.994                       26.221
+       Hair Follicle Outer Root Sheath Hepatic Sinusoidal Endothelial
+    1:                          50.829                         11.219
+    2:                           0.000                          0.000
+    3:                          69.227                         36.612
+    4:                           0.000                          0.000
+    5:                          26.718                         13.360
+   ---                                                               
+17259:                           0.000                          1.070
+17260:                          18.619                         10.445
+17261:                         492.240                        894.871
+17262:                          10.575                          9.780
+17263:                          21.046                         13.323
+       Hepatic Stellate Hepatocyte Immature Langerhans
+    1:           26.137   2377.989              46.017
+    2:            0.000    153.024               0.000
+    3:            1.235   1515.493               9.836
+    4:            0.000      0.000              10.474
+    5:            8.997      0.000               0.000
+   ---                                                
+17259:            0.000      4.341               0.000
+17260:           12.112     33.607               5.106
+17261:         1114.881     94.638             161.451
+17262:            8.467     16.168              20.296
+17263:            7.909     42.797              27.800
+       Intestinal Epithelial (polarized) Iris Pigment Epithelial
+    1:                             0.984                   7.206
+    2:                            53.254                   0.000
+    3:                             9.593                   0.172
+    4:                             0.000                   0.000
+    5:                             6.026                   4.975
+   ---                                                          
+17259:                             1.599                   0.515
+17260:                            16.111                  15.098
+17261:                           118.807                 471.983
+17262:                             7.379                   5.319
+17263:                            15.988                  19.730
+       Keratinocyte Epidermal Keratinocyte Oral Keratocytes Lens Epithelial
+    1:                  4.995             1.852      31.620          12.195
+    2:                  0.000             0.000       0.000           0.000
+    3:                  0.034             0.000       0.000           0.663
+    4:                 20.528            13.148       0.000           0.000
+    5:                  2.383            11.574       9.466           6.038
+   ---                                                                     
+17259:                  0.488             1.204       1.497           0.676
+17260:                  9.766            21.388       6.804          19.175
+17261:                473.740           258.600     535.837         469.660
+17262:                  9.513             5.185      10.281           8.082
+17263:                 16.939            29.165      12.492          20.688
+       Macrophage Monocyte derived Mallassez derived Mammary Epithelial
+    1:                      17.923             9.523              4.266
+    2:                       0.000             0.000              0.000
+    3:                     208.304             0.000              2.494
+    4:                       0.000             5.063              1.235
+    5:                       0.000            14.173              1.850
+   ---                                                                 
+17259:                       0.000             0.794              0.765
+17260:                      29.538            11.063             11.799
+17261:                     544.167           391.202            360.113
+17262:                      21.500             6.146              7.575
+17263:                      24.682            19.728             27.103
+       Mast cells Mast cells stimulated Mature Adipocyte Melanocyte Meningeal
+    1:     21.826                11.824            1.629     24.663     6.175
+    2:      0.000                 0.000            0.000      0.000     0.000
+    3:      1.178                 0.000           85.879    423.667     2.797
+    4:      0.496                 0.000            0.000      0.209     0.000
+    5:      0.883                 0.000            5.599      0.575     7.811
+   ---                                                                       
+17259:      0.119                 0.000            0.300      0.554     1.516
+17260:     23.254                 8.868           38.571     15.233    14.621
+17261:    130.957               205.441           75.078    176.569   725.339
+17262:     24.955                 4.434           17.865     11.846     8.827
+17263:     26.307                38.920           14.656     16.781    16.446
+       Mesenchymal precursor Adipose Mesenchymal precursor Bone Marrow
+    1:                        19.417                            15.766
+    2:                         0.000                             0.000
+    3:                         3.791                             4.242
+    4:                         0.000                             0.000
+    5:                        10.586                            23.057
+   ---                                                                
+17259:                         0.412                             0.063
+17260:                        10.694                            15.663
+17261:                       404.482                           398.606
+17262:                         6.075                             7.430
+17263:                        26.862                            22.748
+       Mesenchymal precursor Cardiac Mesenchymal stem cell Adipose
+    1:                        16.772                       123.496
+    2:                         0.000                         0.000
+    3:                         2.287                        42.790
+    4:                         0.000                         0.000
+    5:                        22.477                        80.009
+   ---                                                            
+17259:                         0.687                         0.109
+17260:                        12.000                        14.489
+17261:                       281.751                      1794.597
+17262:                         6.228                         8.004
+17263:                        23.183                        16.787
+       Mesenchymal stem cell Amniotic Membrane
+    1:                                  21.221
+    2:                                   0.000
+    3:                                  64.543
+    4:                                   0.000
+    5:                                   6.722
+   ---                                        
+17259:                                   0.653
+17260:                                  21.727
+17261:                                 805.240
+17262:                                   6.710
+17263:                                  25.101
+       Mesenchymal stem cell Bone Marrow Mesenchymal stem cell Hepatic
+    1:                            10.101                        25.629
+    2:                             0.000                         0.000
+    3:                             1.121                         5.059
+    4:                             0.000                         0.000
+    5:                             4.531                         4.491
+   ---                                                                
+17259:                             1.463                         1.818
+17260:                            12.460                        28.307
+17261:                           739.854                       348.455
+17262:                             8.035                         8.266
+17263:                            10.272                        27.484
+       Mesenchymal stem cell Umbilical Mesenchymal stem cell Wharton's Jelly
+    1:                          50.172                                28.828
+    2:                           0.000                                 0.000
+    3:                           0.000                                 0.129
+    4:                           0.000                                 0.000
+    5:                          13.804                                 4.395
+   ---                                                                      
+17259:                           0.264                                 0.259
+17260:                          10.866                                18.486
+17261:                         485.315                               305.986
+17262:                           7.237                                 7.756
+17263:                          10.922                                19.520
+       Mesothelial Migratory Langerhans
+    1:      34.815               22.289
+    2:       0.000                0.000
+    3:      91.831              100.280
+    4:       0.000                0.065
+    5:       9.413                2.969
+   ---                                 
+17259:       0.067                0.000
+17260:      17.012                8.426
+17261:     471.516              641.794
+17262:       8.412               16.995
+17263:      13.762               26.937
+       Multipot. Cord Blood Unrestrict. Somatic stem cell Myoblast Myotube
+    1:                                             15.398   24.219  24.929
+    2:                                              0.000    0.000   0.000
+    3:                                              0.000    1.243  29.737
+    4:                                              0.000    0.000   0.000
+    5:                                              4.718   12.731   8.903
+   ---                                                                    
+17259:                                              0.694    0.176   0.267
+17260:                                             22.414   22.962  24.039
+17261:                                            541.254  368.368 462.343
+17262:                                              7.854    9.323   8.992
+17263:                                             26.099   24.100  22.347
+       NK cells Nasal Epithelial Neural stem cell Neurons Neutrophils
+    1:   10.954           10.309            6.114   6.177       0.802
+    2:    0.000            0.000            0.000   0.000       0.000
+    3:    0.066            0.311           96.416  22.745       0.000
+    4:    0.000           21.389            0.254   0.000       0.000
+    5:    0.171            9.087            0.127   0.223       0.000
+   ---                                                               
+17259:    0.229            0.140            0.905   0.000       0.000
+17260:   16.003           14.102           45.513  32.986      65.872
+17261:  150.932          224.852          348.359 176.113    1826.202
+17262:   43.102           12.315           13.429  12.432      78.486
+17263:   39.510           23.803           32.353  28.234      11.961
+       Nucleus Pulposus Olfactory Epithelial Osteoblast Osteocyte
+    1:           28.643               28.786      2.784    27.879
+    2:            0.000                0.000      0.000     0.000
+    3:            1.212                2.805      0.849    16.605
+    4:            0.000                0.000      0.000     0.000
+    5:           34.574                3.817      1.863    27.933
+   ---                                                           
+17259:            0.000                0.717      0.184     0.000
+17260:           21.465               29.622     22.979    15.396
+17261:          807.148              589.053    598.789   447.318
+17262:            7.636               11.644     10.015    12.868
+17263:           28.063               26.305     22.024    18.103
+       Pancreatic Stromal Pericytes Placental Epithelial Preadipocyte Breast
+    1:             25.804    81.360                2.573              26.514
+    2:              0.000     0.000                0.000               0.000
+    3:              6.343     1.740                0.101              17.948
+    4:              0.000     0.000               18.928               0.000
+    5:              9.818    13.108                8.783              23.957
+   ---                                                                      
+17259:              0.695     0.098                0.202               0.140
+17260:             27.281     4.923               13.618              23.652
+17261:            504.272   790.225              427.509             494.841
+17262:              9.210     8.964                8.024               6.965
+17263:             29.106     9.846               11.451              24.937
+       Preadipocyte Omental Preadipocyte Perirenal Preadipocyte Subcutaneous
+    1:               31.362                 57.883                    31.618
+    2:                0.000                  0.000                     0.000
+    3:               20.348                  7.421                     3.173
+    4:                0.000                  0.000                     0.000
+    5:                8.280                 17.810                     6.012
+   ---                                                                      
+17259:                0.428                  0.000                     0.397
+17260:               28.414                 14.842                    20.294
+17261:              485.452                552.115                   647.132
+17262:                7.652                  4.453                     6.832
+17263:               21.306                 11.873                    16.432
+       Preadipocyte Visceral Prostate Epithelial Prostate Stromal
+    1:                17.867               3.093           16.122
+    2:                 0.000               7.816            0.000
+    3:                 0.622               0.138           13.502
+    4:                 0.000              15.235            0.000
+    5:                17.783              13.987           10.854
+   ---                                                           
+17259:                 0.570               0.242            1.390
+17260:                20.144              16.644           19.337
+17261:               504.228             313.816          457.992
+17262:                 8.435               7.171            8.223
+17263:                25.769              19.604           20.297
+       Renal Cortical Epithelial Renal Epithelial Renal Glomerular Endothelial
+    1:                     3.642            8.393                        4.962
+    2:                     0.000            0.000                        0.000
+    3:                     0.000            0.000                       47.414
+    4:                     0.039            0.000                        0.000
+    5:                    12.396           31.502                       36.860
+   ---                                                                        
+17259:                     1.133            2.336                        1.272
+17260:                    11.790           12.459                        9.821
+17261:                   339.622          581.510                      826.222
+17262:                     8.704            4.548                       13.692
+17263:                    16.972           16.062                       14.051
+       Renal Mesangial Renal Proximal Tubular Epithelial Reticulocyte
+    1:          19.607                             4.602        1.113
+    2:           0.000                             0.000        0.000
+    3:           0.251                             0.000        0.131
+    4:           0.000                             0.000        0.000
+    5:          36.755                            26.727       41.660
+   ---                                                               
+17259:           0.522                             2.278        0.000
+17260:           7.441                            10.504        9.483
+17261:         925.429                           314.538       20.467
+17262:           7.887                             6.491       14.248
+17263:           8.118                            11.819       15.576
+       Retinal Pigment Epithelial Salivary Acinar Sebocyte Sertoli
+    1:                      4.445           8.125    9.870   3.214
+    2:                      0.000           0.000    0.000   0.000
+    3:                      0.194           2.552    0.000  35.350
+    4:                      0.000          35.931   24.871   0.000
+    5:                      4.433          21.075    5.033  27.316
+   ---                                                            
+17259:                      1.083           0.069    1.912   0.000
+17260:                     16.906          12.555    9.280  25.709
+17261:                    369.460         268.938 1059.838 393.676
+17262:                      8.508          18.132   11.290  19.282
+17263:                     22.610          33.129    8.857  17.675
+       Skeletal Muscle Skeletal Muscle Satellite Small Airway Epithelial
+    1:          12.024                    14.713                   3.268
+    2:           0.000                     0.000                   0.000
+    3:           5.353                     4.979                   0.132
+    4:           0.000                     0.000                   4.941
+    5:           9.673                    13.759                  14.181
+   ---                                                                  
+17259:           0.487                     0.227                   0.055
+17260:          15.615                    24.160                  12.988
+17261:         444.258                   468.990                 406.527
+17262:           8.857                     9.533                   6.950
+17263:          28.755                    34.142                  27.946
+       Smooth Muscle Aortic Smooth Muscle Brachiocephalic
+    1:               40.748                        45.693
+    2:                0.000                         0.000
+    3:                0.174                         0.093
+    4:                0.000                         0.000
+    5:               16.562                        17.797
+   ---                                                   
+17259:                1.135                         0.000
+17260:               11.313                        14.311
+17261:              744.286                       547.700
+17262:               10.759                         8.519
+17263:                9.526                        17.754
+       Smooth Muscle Brain Vascular Smooth Muscle Bronchial
+    1:                       25.877                  33.998
+    2:                        0.000                   0.000
+    3:                        3.687                  22.458
+    4:                        0.000                   0.000
+    5:                        4.468                  13.933
+   ---                                                     
+17259:                        0.890                   0.726
+17260:                       24.562                  11.288
+17261:                      414.742                1125.933
+17262:                       10.198                   8.764
+17263:                       27.923                  18.051
+       Smooth Muscle Carotid Smooth Muscle Colonic
+    1:                39.639                15.752
+    2:                 0.000                 0.000
+    3:                 0.159                10.153
+    4:                 0.000                 0.000
+    5:                19.114                 7.930
+   ---                                            
+17259:                 0.000                 0.331
+17260:                12.293                21.923
+17261:               970.678               358.749
+17262:                 9.186                 9.284
+17263:                13.333                28.665
+       Smooth Muscle Coronary Artery Smooth Muscle Esophageal
+    1:                       100.375                   21.456
+    2:                         0.000                    0.000
+    3:                         0.669                    0.975
+    4:                         0.000                    0.000
+    5:                        19.340                   15.604
+   ---                                                       
+17259:                         0.202                    2.926
+17260:                         8.915                    4.389
+17261:                       732.392                 1411.700
+17262:                        14.216                    6.339
+17263:                         8.280                    8.777
+       Smooth Muscle Internal Thoracic Artery Smooth Muscle Prostate
+    1:                                 43.965                 21.860
+    2:                                  0.000                  0.000
+    3:                                  0.122                  6.740
+    4:                                  0.000                  0.000
+    5:                                 31.124                  9.725
+   ---                                                              
+17259:                                  0.244                  1.311
+17260:                                  8.531                 17.391
+17261:                                534.323                374.423
+17262:                                 10.441                  9.558
+17263:                                 13.609                 24.070
+       Smooth Muscle Pulmonary Artery Smooth Muscle Subclavian Artery
+    1:                         48.593                          18.313
+    2:                          0.000                           0.000
+    3:                          2.260                           0.146
+    4:                          0.000                           0.000
+    5:                         30.512                          25.372
+   ---                                                               
+17259:                          0.000                           0.146
+17260:                         16.951                          11.053
+17261:                        679.179                         688.957
+17262:                          6.780                          10.125
+17263:                          6.780                          11.370
+       Smooth Muscle Tracheal Smooth Muscle Umbilical Artery
+    1:                 26.873                         34.897
+    2:                  0.000                          0.000
+    3:                 37.598                          2.324
+    4:                  0.000                          0.000
+    5:                 24.153                          8.914
+   ---                                                      
+17259:                  0.328                          0.237
+17260:                 20.024                         10.054
+17261:                740.403                        977.311
+17262:                  6.578                          9.201
+17263:                 15.163                          9.848
+       Smooth Muscle Umbilical Vein Smooth Muscle Uterine Synoviocyte Tenocyte
+    1:                       13.021                18.802       9.504   18.775
+    2:                        0.000                 0.000       0.000    0.000
+    3:                        0.143                 3.193       2.208    5.266
+    4:                        0.000                 0.000       0.000    0.000
+    5:                        1.855                 2.129      65.447   61.794
+   ---                                                                        
+17259:                        0.430                 1.064       0.481    0.000
+17260:                       17.677                18.448      21.608   24.898
+17261:                      510.591               433.518     467.281  489.985
+17262:                        5.382                 9.933       7.342    6.676
+17263:                       23.406                24.833      25.040   22.721
+       Trabecular Meshwork Tracheal Epithelial Urothelial n
+    1:              30.337              10.808      2.750 1
+    2:               0.000               0.000      0.000 1
+    3:               0.000               0.223      0.000 1
+    4:               0.000               4.885     10.780 1
+    5:               6.097              11.199     26.715 1
+   ---                                                     
+17259:               2.393               0.096      0.000 1
+17260:              10.372               7.905     11.614 1
+17261:            1313.519             616.760    540.465 1
+17262:               8.898               6.903      6.794 1
+17263:              19.108              11.410     10.543 1</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04_dplyr.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Basic dplyr operations on data columns</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
