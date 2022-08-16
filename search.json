@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "R & OMICS",
     "section": "",
-    "text": "This web resource covers basic R operations on gene expression tables such as data reading/writing, exploring wrangling and plotting. It is largely based on R tidyverse package and can be useful for Next Generation Sequencing functional data analysis.\nThe resource was created and is being maintained by Jordan RAMILOWSKI from the Bioinformatics Laboratory at Yokohama City University."
+    "text": "This is a Quarto book to impress Jonathan.\nThis web resource covers basic R operations on gene expression tables such as data reading/writing, exploring wrangling and plotting. It is largely based on R tidyverse package and can be useful for Next Generation Sequencing functional data analysis.\nThe resource was created and is being maintained by Jordan RAMILOWSKI from the Bioinformatics Laboratory at Yokohama City University."
   },
   {
     "objectID": "01_Practical.html",
